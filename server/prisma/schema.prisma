@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Administrador {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  nombre    String
+  password  String
+  activo    Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("administradores")
+}
+
+model Socio {
+  id                    String       @id @default(uuid())
+  codigoUnico           String       @unique @map("codigo_unico")
+  numeroSocio           Int?         @unique @map("numero_socio")
+  nombre                String
+  rut                   String?
+  fechaNacimiento       DateTime?    @map("fecha_nacimiento")
+  sexo                  String?
+  email                 String?
+  telefono              String?
+  direccion             String?
+  contactoEmergencia    String?      @map("contacto_emergencia")
+  observaciones         String?
+  password              String?
+  codigoNFC             String?      @unique @map("codigo_nfc")
+  foto                  String?
+  fechaInicio           DateTime     @map("fecha_inicio")
+  fechaTermino          DateTime     @map("fecha_termino")
+  estado                String       @default("activo")
+  createdAt             DateTime     @default(now()) @map("created_at")
+  updatedAt             DateTime     @updatedAt @map("updated_at")
+  renovaciones          Renovacion[]
+  ingresos              Ingreso[]
+
+  @@map("socios")
+}
+
+model Renovacion {
+  id         String   @id @default(uuid())
+  socioId    String   @map("socio_id")
+  dias       Int
+  fechaAntes DateTime @map("fecha_antes")
+  fechaNueva DateTime @map("fecha_nueva")
+  createdAt  DateTime @default(now()) @map("created_at")
+  socio      Socio    @relation(fields: [socioId], references: [id], onDelete: Cascade)
+
+  @@map("renovaciones")
+}
+
+model Ingreso {
+  id           String   @id @default(uuid())
+  socioId      String   @map("socio_id")
+  fechaIngreso DateTime @default(now()) @map("fecha_ingreso")
+  estado       String
+  dispositivo  String?
+  ip           String?
+  socio        Socio    @relation(fields: [socioId], references: [id], onDelete: Cascade)
+
+  @@map("ingresos")
+}
+
+model Notificacion {
+  id        String   @id @default(uuid())
+  tipo      String
+  mensaje   String
+  leida     Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("notificaciones")
+}

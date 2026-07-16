@@ -1,0 +1,10 @@
+{
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "npm install && npx prisma generate"
+  },
+  "deploy": {
+    "startCommand": "npx prisma db push --accept-data-loss && npx prisma db seed && npx tsx src/prod.ts",
+    "restartPolicyType": "ON_FAILURE"
+  }
+}

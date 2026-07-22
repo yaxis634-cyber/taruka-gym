@@ -27,7 +27,7 @@ model Socio {
   rut                   String?
   fechaNacimiento       DateTime?    @map("fecha_nacimiento")
   sexo                  String?
-  email                 String?
+  email                 String
   telefono              String?
   direccion             String?
   contactoEmergencia    String?      @map("contacto_emergencia")
@@ -35,8 +35,8 @@ model Socio {
   password              String?
   codigoNFC             String?      @unique @map("codigo_nfc")
   foto                  String?
-  fechaInicio           DateTime     @map("fecha_inicio")
-  fechaTermino          DateTime     @map("fecha_termino")
+  fechaInicio           DateTime?    @map("fecha_inicio")
+  fechaTermino          DateTime?    @map("fecha_termino")
   estado                String       @default("activo")
   createdAt             DateTime     @default(now()) @map("created_at")
   updatedAt             DateTime     @updatedAt @map("updated_at")

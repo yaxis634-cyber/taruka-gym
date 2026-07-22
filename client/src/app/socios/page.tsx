@@ -173,8 +173,8 @@ export default function SociosPage() {
       contactoEmergencia: socio.contactoEmergencia || '',
       observaciones: socio.observaciones || '',
       codigoNFC: socio.codigoNFC || '',
-      fechaInicio: format(new Date(socio.fechaInicio), 'yyyy-MM-dd'),
-      fechaTermino: format(new Date(socio.fechaTermino), 'yyyy-MM-dd'),
+      fechaInicio: socio.fechaInicio ? format(new Date(socio.fechaInicio), 'yyyy-MM-dd') : '',
+      fechaTermino: socio.fechaTermino ? format(new Date(socio.fechaTermino), 'yyyy-MM-dd') : '',
       estado: socio.estado,
     });
     setFotoFile(null);
@@ -196,8 +196,8 @@ export default function SociosPage() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!form.nombre || !form.rut || !form.fechaInicio || !form.fechaTermino) {
-      toast.error('Complete los campos requeridos');
+    if (!form.nombre || !form.email) {
+      toast.error('Nombre y correo son obligatorios');
       return;
     }
 
@@ -474,8 +474,8 @@ export default function SociosPage() {
             </div>
 
             <div>
-              <label className="block text-dark-300 text-sm mb-1.5">RUT *</label>
-              <input type="text" value={form.rut} onChange={e => setForm({ ...form, rut: e.target.value })} className="input-field" required />
+              <label className="block text-dark-300 text-sm mb-1.5">RUT</label>
+              <input type="text" value={form.rut} onChange={e => setForm({ ...form, rut: e.target.value })} className="input-field" />
             </div>
 
             <div>
@@ -494,8 +494,8 @@ export default function SociosPage() {
             </div>
 
             <div>
-              <label className="block text-dark-300 text-sm mb-1.5">Correo</label>
-              <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} className="input-field" />
+              <label className="block text-dark-300 text-sm mb-1.5">Correo *</label>
+              <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} className="input-field" required />
             </div>
 
             <div>
@@ -519,13 +519,13 @@ export default function SociosPage() {
             </div>
 
             <div>
-              <label className="block text-dark-300 text-sm mb-1.5">Fecha inicio *</label>
-              <input type="date" value={form.fechaInicio} onChange={e => setForm({ ...form, fechaInicio: e.target.value })} className="input-field" required />
+              <label className="block text-dark-300 text-sm mb-1.5">Fecha inicio</label>
+              <input type="date" value={form.fechaInicio} onChange={e => setForm({ ...form, fechaInicio: e.target.value })} className="input-field" />
             </div>
 
             <div>
-              <label className="block text-dark-300 text-sm mb-1.5">Fecha término *</label>
-              <input type="date" value={form.fechaTermino} onChange={e => setForm({ ...form, fechaTermino: e.target.value })} className="input-field" required />
+              <label className="block text-dark-300 text-sm mb-1.5">Fecha término</label>
+              <input type="date" value={form.fechaTermino} onChange={e => setForm({ ...form, fechaTermino: e.target.value })} className="input-field" />
             </div>
 
             <div>

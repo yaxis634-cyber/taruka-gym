@@ -23,8 +23,8 @@ export class SociosController {
           foto,
           password: passwordHash,
           fechaNacimiento: req.body.fechaNacimiento ? new Date(req.body.fechaNacimiento) : null,
-          fechaInicio: new Date(req.body.fechaInicio),
-          fechaTermino: new Date(req.body.fechaTermino),
+          fechaInicio: req.body.fechaInicio ? new Date(req.body.fechaInicio) : null,
+          fechaTermino: req.body.fechaTermino ? new Date(req.body.fechaTermino) : null,
         },
       });
 
@@ -221,8 +221,8 @@ export class SociosController {
         'Observación': s.observaciones || '',
         'Código NFC': s.codigoNFC || '',
         'Código QR': s.codigoUnico,
-        'Fecha Inicio': s.fechaInicio.toISOString().split('T')[0],
-        'Fecha Término': s.fechaTermino.toISOString().split('T')[0],
+        'Fecha Inicio': s.fechaInicio ? s.fechaInicio.toISOString().split('T')[0] : '',
+        'Fecha Término': s.fechaTermino ? s.fechaTermino.toISOString().split('T')[0] : '',
       }));
 
       const ws = XLSX.utils.json_to_sheet(data);

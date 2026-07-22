@@ -71,7 +71,7 @@ function limpiarTexto(valor: any): string {
 }
 
 async function importar() {
-  const excelPath = path.join(__dirname, '..', '..', 'alumnos', 'clientes_boxmagic_2026-07-16.xlsx');
+  const excelPath = path.join(__dirname, '..', '..', 'alumnos', 'clientes_boxmagic_2026-07-22.xlsx');
 
   console.log('Leyendo archivo:', excelPath);
   const workbook = XLSX.readFile(excelPath);

@@ -376,7 +376,7 @@ export default function SociosPage() {
                         <td className="py-3 px-4 whitespace-nowrap"><StatusBadge estado={socio.estado} /></td>
                         <td className="py-3 px-4 hidden lg:table-cell">
                           <p className="text-dark-300 text-xs whitespace-nowrap">
-                            {format(new Date(socio.fechaInicio), 'dd/MM/yy')} - {format(new Date(socio.fechaTermino), 'dd/MM/yy')}
+                            {socio.fechaInicio ? format(new Date(socio.fechaInicio), 'dd/MM/yy') : '-'} - {socio.fechaTermino ? format(new Date(socio.fechaTermino), 'dd/MM/yy') : '-'}
                           </p>
                         </td>
                         <td className="py-3 px-4">
@@ -578,7 +578,7 @@ export default function SociosPage() {
           </div>
           <div>
             <p className="text-dark-400 text-sm">Fecha actual de término</p>
-            <p className="text-white">{renovarModal && format(new Date(renovarModal.fechaTermino), 'dd/MM/yyyy')}</p>
+            <p className="text-white">{renovarModal?.fechaTermino ? format(new Date(renovarModal.fechaTermino), 'dd/MM/yyyy') : 'Sin fecha'}</p>
           </div>
 
           <div>

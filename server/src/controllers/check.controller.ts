@@ -23,9 +23,9 @@ export class CheckController {
       }
 
       const ahora = new Date();
-      const diasRestantes = Math.ceil(
-        (socio.fechaTermino.getTime() - ahora.getTime()) / (1000 * 60 * 60 * 24)
-      );
+      const diasRestantes = socio.fechaTermino
+        ? Math.ceil((socio.fechaTermino.getTime() - ahora.getTime()) / (1000 * 60 * 60 * 24))
+        : -1;
 
       let estadoDisplay: string;
       let mensaje: string;
@@ -70,8 +70,8 @@ export class CheckController {
         nombre: socio.nombre,
         foto: socio.foto,
         estado: estadoDisplay,
-        fechaInicio: socio.fechaInicio.toISOString(),
-        fechaTermino: socio.fechaTermino.toISOString(),
+        fechaInicio: socio.fechaInicio?.toISOString() || '',
+        fechaTermino: socio.fechaTermino?.toISOString() || '',
         puedeIngresar,
         mensaje,
       });

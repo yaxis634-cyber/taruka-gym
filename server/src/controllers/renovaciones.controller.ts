@@ -16,9 +16,11 @@ export class RenovacionesController {
         return;
       }
 
+      const fechaTerminoActual = socio.fechaTermino || new Date();
+
       let fechaActual = new Date();
-      if (socio.fechaTermino > fechaActual) {
-        fechaActual = socio.fechaTermino;
+      if (fechaTerminoActual > fechaActual) {
+        fechaActual = fechaTerminoActual;
       }
 
       let nuevaFecha: Date;
@@ -33,7 +35,7 @@ export class RenovacionesController {
       }
 
       const diasReales = Math.ceil(
-        (nuevaFecha.getTime() - socio.fechaTermino.getTime()) / (1000 * 60 * 60 * 24)
+        (nuevaFecha.getTime() - fechaTerminoActual.getTime()) / (1000 * 60 * 60 * 24)
       );
 
       const [renovacion] = await prisma.$transaction([
@@ -41,7 +43,7 @@ export class RenovacionesController {
           data: {
             socioId,
             dias: diasReales > 0 ? diasReales : dias || 0,
-            fechaAntes: socio.fechaTermino,
+            fechaAntes: fechaTerminoActual,
             fechaNueva: nuevaFecha,
           },
         }),

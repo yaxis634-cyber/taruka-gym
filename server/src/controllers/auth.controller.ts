@@ -1,10 +1,12 @@
 import { Response } from 'express';
+import { Server } from 'socket.io';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { AuthService } from '../services/auth.service';
 import { AuthRequest } from '../middleware/auth';
 import prisma from '../config/prisma';
 import { config } from '../config';
+import { emitirAcceso } from '../sockets';
 
 export class AuthController {
   static async login(req: AuthRequest, res: Response): Promise<void> {
@@ -73,6 +75,54 @@ export class AuthController {
         config.jwtSecret,
         { expiresIn: '7d' } as jwt.SignOptions
       );
+
+      const ahora = new Date();
+      const diasRestantes = socio.fechaTermino
+        ? Math.ceil((socio.fechaTermino.getTime() - ahora.getTime()) / (1000 * 60 * 60 * 24))
+        : -1;
+
+      let estadoDisplay: string;
+      let mensaje: string;
+      let puedeIngresar: boolean;
+
+      if (socio.estado === 'activo' && diasRestantes > 0) {
+        estadoDisplay = 'activo';
+        mensaje = 'Membresía Vigente';
+        puedeIngresar = true;
+      } else if (socio.estado === 'congelado') {
+        estadoDisplay = 'congelado';
+        mensaje = 'Membresía Congelada';
+        puedeIngresar = false;
+      } else if (socio.estado === 'suspendido') {
+        estadoDisplay = 'suspendido';
+        mensaje = 'Membresía Suspendida';
+        puedeIngresar = false;
+      } else {
+        estadoDisplay = 'vencido';
+        mensaje = 'Membresía Vencida';
+        puedeIngresar = false;
+      }
+
+      await prisma.ingreso.create({
+        data: {
+          socioId: socio.id,
+          estado: estadoDisplay,
+          dispositivo: req.headers['user-agent'],
+          ip: (req.headers['x-forwarded-for'] as string)?.split(',')[0] || req.socket.remoteAddress || '',
+        },
+      });
+
+      const io = req.app.get('io') as Server;
+      emitirAcceso(io, {
+        socioId: socio.id,
+        nombre: socio.nombre,
+        foto: socio.foto,
+        estado: estadoDisplay,
+        fechaInicio: socio.fechaInicio?.toISOString() || '',
+        fechaTermino: socio.fechaTermino?.toISOString() || '',
+        puedeIngresar,
+        mensaje,
+      });
 
       res.json({
         token,

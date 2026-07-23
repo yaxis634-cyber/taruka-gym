@@ -16,15 +16,23 @@ export class SociosController {
 
       const passwordHash = await bcrypt.hash('Taruka26', 10);
 
+      const bodyData: any = {};
+      for (const [key, value] of Object.entries(req.body)) {
+        if (value === '') {
+          bodyData[key] = null;
+        } else if (key === 'fechaNacimiento' || key === 'fechaInicio' || key === 'fechaTermino') {
+          bodyData[key] = new Date(value as string);
+        } else {
+          bodyData[key] = value;
+        }
+      }
+
       const socio = await prisma.socio.create({
         data: {
-          ...req.body,
+          ...bodyData,
           codigoUnico,
           foto,
           password: passwordHash,
-          fechaNacimiento: req.body.fechaNacimiento ? new Date(req.body.fechaNacimiento) : null,
-          fechaInicio: req.body.fechaInicio ? new Date(req.body.fechaInicio) : null,
-          fechaTermino: req.body.fechaTermino ? new Date(req.body.fechaTermino) : null,
         },
       });
 
@@ -121,11 +129,17 @@ export class SociosController {
         foto = `/uploads/${req.file.filename}`;
       }
 
-      const data: any = { ...req.body };
+      const data: any = {};
+      for (const [key, value] of Object.entries(req.body)) {
+        if (value === '') {
+          data[key] = null;
+        } else if (key === 'fechaNacimiento' || key === 'fechaInicio' || key === 'fechaTermino') {
+          data[key] = new Date(value as string);
+        } else {
+          data[key] = value;
+        }
+      }
       if (foto) data.foto = foto;
-      if (data.fechaNacimiento) data.fechaNacimiento = new Date(data.fechaNacimiento);
-      if (data.fechaInicio) data.fechaInicio = new Date(data.fechaInicio);
-      if (data.fechaTermino) data.fechaTermino = new Date(data.fechaTermino);
 
       const socio = await prisma.socio.update({
         where: { id: req.params.id },

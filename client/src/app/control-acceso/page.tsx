@@ -169,23 +169,54 @@ export default function ControlAccesoPage() {
   const [notificaciones, setNotificaciones] = useState<NotificacionAcceso[]>([]);
   const [historial, setHistorial] = useState<Ingreso[]>([]);
   const idCounter = useRef(0);
+  const lastCheckRef = useRef<string | null>(null);
+  const notifiedRef = useRef<Set<string>>(new Set());
+
+  const addNotificacion = useCallback((notif: Omit<NotificacionAcceso, 'id' | 'hora'>, hora: Date) => {
+    const key = `${notif.socioId}-${hora.toISOString()}`;
+    if (notifiedRef.current.has(key)) return;
+    notifiedRef.current.add(key);
+    if (notifiedRef.current.size > 50) notifiedRef.current.clear();
+
+    const id = `notif-${++idCounter.current}-${Date.now()}`;
+    const nueva: NotificacionAcceso = { id, ...notif, hora };
+    setNotificaciones((prev) => [nueva, ...prev].slice(0, 20));
+    setTimeout(() => {
+      setNotificaciones((prev) => prev.filter((n) => n.id !== id));
+    }, 15000);
+  }, []);
 
   const fetchHistorial = useCallback(async () => {
     try {
       const data = await api.dashboard.ultimosIngresos();
       setHistorial(data);
+
+      if (data.length > 0 && data[0].fechaIngreso !== lastCheckRef.current) {
+        lastCheckRef.current = data[0].fechaIngreso;
+        const nuevo = data[0];
+        addNotificacion({
+          socioId: nuevo.socioId,
+          nombre: nuevo.socio?.nombre || 'Desconocido',
+          foto: nuevo.socio?.foto || null,
+          estado: nuevo.estado,
+          fechaInicio: '',
+          fechaTermino: '',
+          puedeIngresar: nuevo.estado === 'activo',
+          mensaje: nuevo.estado === 'activo' ? 'Acceso Permitido' : 'Acceso Denegado',
+        }, new Date(nuevo.fechaIngreso));
+      }
     } catch {}
-  }, []);
+  }, [addNotificacion]);
 
   useEffect(() => {
     joinAdmin();
     fetchHistorial();
+    const interval = setInterval(fetchHistorial, 3000);
+    return () => clearInterval(interval);
   }, [joinAdmin, fetchHistorial]);
 
   useEffect(() => {
     const unsubscribe = onAcceso((data: AccesoEvent) => {
-      const id = `notif-${++idCounter.current}-${Date.now()}`;
-
       if (data.puedeIngresar) {
         playSound('success');
       } else if (data.estado === 'congelado') {
@@ -194,25 +225,16 @@ export default function ControlAccesoPage() {
         playSound('error');
       }
 
-      setNotificaciones((prev) => {
-        const nueva: NotificacionAcceso = {
-          id,
-          socioId: data.socioId,
-          nombre: data.nombre,
-          foto: data.foto,
-          estado: data.estado,
-          fechaInicio: data.fechaInicio,
-          fechaTermino: data.fechaTermino,
-          puedeIngresar: data.puedeIngresar,
-          mensaje: data.mensaje,
-          hora: new Date(),
-        };
-        return [nueva, ...prev].slice(0, 20);
-      });
-
-      setTimeout(() => {
-        setNotificaciones((prev) => prev.filter((n) => n.id !== id));
-      }, 15000);
+      addNotificacion({
+        socioId: data.socioId,
+        nombre: data.nombre,
+        foto: data.foto,
+        estado: data.estado,
+        fechaInicio: data.fechaInicio,
+        fechaTermino: data.fechaTermino,
+        puedeIngresar: data.puedeIngresar,
+        mensaje: data.mensaje,
+      }, new Date());
 
       fetchHistorial();
     });
@@ -220,7 +242,7 @@ export default function ControlAccesoPage() {
     return () => {
       unsubscribe();
     };
-  }, [onAcceso, fetchHistorial]);
+  }, [onAcceso, fetchHistorial, addNotificacion]);
 
   const dismissNotif = (id: string) => {
     setNotificaciones((prev) => prev.filter((n) => n.id !== id));

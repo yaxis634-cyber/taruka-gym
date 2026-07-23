@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import * as XLSX from 'xlsx';
 import { v4 as uuidv4 } from 'uuid';
 import * as path from 'path';
+import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
@@ -80,6 +81,8 @@ async function importar() {
 
   console.log(`Total registros en Excel: ${rows.length}`);
 
+  const passwordHash = await bcrypt.hash('Taruka26', 10);
+
   let importados = 0;
   let errores = 0;
 
@@ -149,6 +152,7 @@ async function importar() {
             fechaInicio: ahora,
             fechaTermino,
             estado,
+            password: passwordHash,
           },
         });
         console.log(`  Creado: ${nombre} (${numeroSocio})`);

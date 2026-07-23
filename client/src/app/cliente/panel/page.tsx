@@ -6,7 +6,7 @@ import { IoFitnessOutline } from 'react-icons/io5';
 import { HiOutlineLogout, HiOutlineCalendar, HiOutlineClock, HiOutlineCheck, HiOutlineX, HiOutlineMinus, HiOutlineQrcode, HiOutlineLink } from 'react-icons/hi';
 import { format, differenceInDays } from 'date-fns';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || '${UPLOADS_URL}/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
 const FRONT_URL = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
 
 interface ClienteData {

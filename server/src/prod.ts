@@ -12,7 +12,7 @@ async function start() {
     console.log('Base de datos conectada');
 
     server.listen(PORT, '0.0.0.0', () => {
-      console.log(`TARUKA GYM producción en puerto ${PORT}`);
+      console.log(`Ingresotaruka producción en puerto ${PORT}`);
     });
   } catch (error) {
     console.error('Error al iniciar:', error);

@@ -29,6 +29,9 @@ export function emitirAcceso(io: Server, data: {
   puedeIngresar: boolean;
   mensaje: string;
 }): void {
+  const adminSockets = io.sockets.adapter.rooms.get('admin-room');
+  const checkSockets = io.sockets.adapter.rooms.get(`check-${data.socioId}`);
+  console.log(`[Socket] emitirAcceso → ${data.nombre} (${data.estado}) | admin-room: ${adminSockets?.size || 0} sockets | check: ${checkSockets?.size || 0} sockets`);
   io.to('admin-room').emit('nuevo-acceso', data);
   io.to(`check-${data.socioId}`).emit('acceso-registrado', data);
 }

@@ -27,7 +27,7 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await login(email, password);
-      toast.success('Bienvenido a TARUKA GYM');
+      toast.success('Bienvenido a Ingresotaruka');
       router.push('/dashboard');
     } catch (err: any) {
       setError(err.message || 'Credenciales inválidas');
@@ -49,7 +49,7 @@ export default function LoginPage() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-600 mb-4">
               <IoFitnessOutline className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-white text-2xl font-bold">TARUKA GYM</h1>
+            <h1 className="text-white text-2xl font-bold">Ingresotaruka</h1>
             <p className="text-dark-400 text-sm mt-1">Panel de Administración</p>
           </div>
 
@@ -106,9 +106,17 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <p className="text-center text-dark-600 text-xs mt-6">
-            TARUKA GYM &copy; {new Date().getFullYear()}
-          </p>
+          <div className="text-center mt-6 space-y-2">
+            <a
+              href="/cliente/login"
+              className="text-primary-400 hover:text-primary-300 text-sm transition-colors block"
+            >
+              Soy alumno/a - Acceso Alumnos
+            </a>
+            <p className="text-dark-600 text-xs">
+              Ingresotaruka &copy; {new Date().getFullYear()}
+            </p>
+          </div>
         </div>
       </div>
     </div>

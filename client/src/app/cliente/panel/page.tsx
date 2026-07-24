@@ -95,7 +95,7 @@ export default function ClientePanelPage() {
             <div className="w-10 h-10 rounded-xl bg-primary-600 flex items-center justify-center">
               <IoFitnessOutline className="w-5 h-5 text-white" />
             </div>
-            <h1 className="text-white text-lg font-bold">TARUKA GYM</h1>
+            <h1 className="text-white text-lg font-bold">Ingresotaruka</h1>
           </div>
           <button
             onClick={handleLogout}
@@ -232,7 +232,7 @@ export default function ClientePanelPage() {
         </div>
 
         <p className="text-center text-dark-600 text-xs">
-          TARUKA GYM &copy; {new Date().getFullYear()}
+          Ingresotaruka &copy; {new Date().getFullYear()}
         </p>
       </div>
     </div>

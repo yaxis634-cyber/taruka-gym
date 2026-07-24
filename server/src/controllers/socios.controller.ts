@@ -251,7 +251,7 @@ export class SociosController {
       );
       res.setHeader(
         'Content-Disposition',
-        `attachment; filename=socios_taruka_gym_${new Date().toISOString().split('T')[0]}.xlsx`
+        `attachment; filename=socios_ingresotaruka_${new Date().toISOString().split('T')[0]}.xlsx`
       );
       res.send(buffer);
     } catch (error) {

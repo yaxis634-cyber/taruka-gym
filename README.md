@@ -1,4 +1,4 @@
-# TARUKA GYM - Sistema de Gestión y Control de Acceso
+# Ingresotaruka - Sistema de Gestión y Control de Acceso
 
 Sistema web profesional para la administración de socios y control de acceso mediante NFC/QR para gimnasios.
 
@@ -17,7 +17,7 @@ Sistema web profesional para la administración de socios y control de acceso me
 ## Estructura del Proyecto
 
 ```
-taruka-gym/
+ingresotaruka/
 ├── client/                    # Frontend Next.js
 │   ├── src/
 │   │   ├── app/               # Páginas (App Router)
@@ -227,4 +227,4 @@ cd server && npm run build && npm start
 
 ## Licencia
 
-Software propietario - TARUKA GYM
+Software propietario - Ingresotaruka

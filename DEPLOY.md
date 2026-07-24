@@ -1,4 +1,4 @@
-# Subir TARUKA GYM a Internet
+# Subir Ingresotaruka a Internet
 
 ## Requisitos previos
 
@@ -13,8 +13,8 @@
 cd "/Users/renesilva/Desktop/Puerta gym"
 git init
 git add .
-git commit -m "TARUKA GYM v1.0"
-gh repo create taruka-gym --public --source=. --push
+git commit -m "Ingresotaruka v1.0"
+gh repo create ingresotaruka --public --source=. --push
 ```
 
 ---
@@ -26,7 +26,7 @@ gh repo create taruka-gym --public --source=. --push
 1. Entra a https://railway.app y crea cuenta (puedes usar GitHub)
 2. Click en **"New Project"**
 3. Selecciona **"Deploy from GitHub repo"**
-4. Elige tu repositorio `taruka-gym`
+4. Elige tu repositorio `ingresotaruka`
 
 ### 2.2 Agregar PostgreSQL
 
@@ -52,7 +52,7 @@ CLIENT_URL=https://TU_FRONTEND.vercel.app
 
 ### 2.4 Anotar la URL del backend
 
-Railway te dará una URL como `https://taruka-gym-production.up.railway.app`. **Anótala**, la necesitarás para el frontend.
+Railway te dará una URL como `https://ingresotaruka-production.up.railway.app`. **Anótala**, la necesitarás para el frontend.
 
 ---
 
@@ -62,7 +62,7 @@ Railway te dará una URL como `https://taruka-gym-production.up.railway.app`. **
 
 1. Entra a https://vercel.com y crea cuenta con GitHub
 2. Click en **"Add New"** → **"Project"**
-3. Selecciona tu repositorio `taruka-gym`
+3. Selecciona tu repositorio `ingresotaruka`
 
 ### 3.2 Configurar
 
@@ -85,7 +85,7 @@ NEXT_PUBLIC_UPLOADS_URL = https://TU_BACKEND.railway.app
 
 ### 3.4 Deploy
 
-Click en **"Deploy"**. Vercel hará el build y te dará una URL como `https://taruka-gym.vercel.app`.
+Click en **"Deploy"**. Vercel hará el build y te dará una URL como `https://ingresotaruka.vercel.app`.
 
 ---
 
@@ -116,5 +116,5 @@ Click en **"Deploy"**. Vercel hará el build y te dará una URL como `https://ta
 
 ## Dominio personalizado (opcional)
 
-Puedes comprar un dominio (ej. tarukagym.cl) y conectarlo a Vercel (gratis).
-Así los QR/NFC apuntarán a `https://tarukagym.cl/check/CODIGO`.
+Puedes comprar un dominio (ej. ingresotaruka.cl) y conectarlo a Vercel (gratis).
+Así los QR/NFC apuntarán a `https://ingresotaruka.cl/check/CODIGO`.

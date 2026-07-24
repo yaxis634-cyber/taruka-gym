@@ -59,8 +59,7 @@ export default function Sidebar() {
               <IoFitnessOutline className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-white font-bold text-lg leading-tight">TARUKA</h1>
-              <p className="text-primary-400 text-xs font-medium -mt-0.5">GYM</p>
+              <h1 className="text-white font-bold text-lg leading-tight">Ingresotaruka</h1>
             </div>
           </div>
         </div>

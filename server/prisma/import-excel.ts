@@ -132,6 +132,7 @@ async function importar() {
             fechaNacimiento,
             rut: rut || null,
             estado,
+            password: existing.password || passwordHash,
           },
         });
         console.log(`  Actualizado: ${nombre} (${numeroSocio})`);

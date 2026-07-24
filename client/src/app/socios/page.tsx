@@ -304,7 +304,7 @@ export default function SociosPage() {
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `socios_taruka_gym_${new Date().toISOString().split('T')[0]}.xlsx`;
+                a.download = `socios_ingresotaruka_${new Date().toISOString().split('T')[0]}.xlsx`;
                 a.click();
                 URL.revokeObjectURL(url);
                 toast.success('Excel exportado exitosamente');

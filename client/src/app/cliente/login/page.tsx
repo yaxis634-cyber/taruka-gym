@@ -85,7 +85,7 @@ export default function ClienteLoginPage() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-600 mb-4">
               <IoFitnessOutline className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-white text-2xl font-bold">TARUKA GYM</h1>
+            <h1 className="text-white text-2xl font-bold">Ingresotaruka</h1>
             <p className="text-dark-400 text-sm mt-1">Acceso Alumnos</p>
           </div>
 
@@ -145,9 +145,17 @@ export default function ClienteLoginPage() {
             </button>
           </form>
 
-          <p className="text-center text-dark-600 text-xs mt-6">
-            TARUKA GYM &copy; {new Date().getFullYear()}
-          </p>
+          <div className="text-center mt-6 space-y-2">
+            <a
+              href="/login"
+              className="text-primary-400 hover:text-primary-300 text-sm transition-colors block"
+            >
+              Soy administrador - Panel Admin
+            </a>
+            <p className="text-dark-600 text-xs">
+              Ingresotaruka &copy; {new Date().getFullYear()}
+            </p>
+          </div>
         </div>
       )}
     </div>

@@ -10,7 +10,7 @@ async function start() {
     console.log('Base de datos conectada');
 
     server.listen(config.port, () => {
-      console.log(`Servidor TARUKA GYM corriendo en puerto ${config.port}`);
+      console.log(`Servidor Ingresotaruka corriendo en puerto ${config.port}`);
     });
   } catch (error) {
     console.error('Error al iniciar el servidor:', error);

@@ -1,5 +1,5 @@
 {
-  "name": "taruka-gym-server",
+  "name": "ingresotaruka-server",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -12,6 +12,7 @@
     "db:generate": "prisma generate",
     "db:push": "prisma db push --accept-data-loss",
     "db:seed": "tsx prisma/seed.ts",
+    "db:asignar-passwords": "tsx prisma/asignar-passwords.ts",
     "db:studio": "prisma studio"
   },
   "prisma": {

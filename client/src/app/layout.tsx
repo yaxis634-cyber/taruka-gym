@@ -4,8 +4,8 @@ import { AuthProvider } from '@/contexts/auth.context';
 import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
-  title: 'TARUKA GYM - Sistema de Gestión',
-  description: 'Sistema de administración y control de acceso TARUKA GYM',
+  title: 'Ingresotaruka - Sistema de Gestión',
+  description: 'Sistema de administración y control de acceso Ingresotaruka',
   icons: { icon: '/favicon.ico' },
 };
 

@@ -78,7 +78,7 @@ export default function CheckPage() {
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary-600 mb-3">
             <IoFitnessOutline className="w-6 h-6 text-white" />
           </div>
-          <h1 className="text-white text-lg font-bold tracking-wide">TARUKA GYM</h1>
+          <h1 className="text-white text-lg font-bold tracking-wide">Ingresotaruka</h1>
         </div>
 
         {loading ? (
@@ -145,7 +145,7 @@ export default function CheckPage() {
         ) : null}
 
         <p className="text-center text-dark-600 text-xs mt-8">
-          TARUKA GYM &copy; {new Date().getFullYear()}
+          Ingresotaruka &copy; {new Date().getFullYear()}
         </p>
       </div>
     </div>

@@ -192,6 +192,7 @@ export default function ControlAccesoPage() {
       setHistorial(data);
 
       if (data.length > 0 && data[0].fechaIngreso !== lastCheckRef.current) {
+        console.log('[ControlAcceso] Polling detectó nuevo ingreso:', data[0].socio?.nombre, data[0].fechaIngreso);
         lastCheckRef.current = data[0].fechaIngreso;
         const nuevo = data[0];
         addNotificacion({
@@ -205,7 +206,9 @@ export default function ControlAccesoPage() {
           mensaje: nuevo.estado === 'activo' ? 'Acceso Permitido' : 'Acceso Denegado',
         }, new Date(nuevo.fechaIngreso));
       }
-    } catch {}
+    } catch (err) {
+      console.error('[ControlAcceso] Error en polling:', err);
+    }
   }, [addNotificacion]);
 
   useEffect(() => {
@@ -217,6 +220,8 @@ export default function ControlAccesoPage() {
 
   useEffect(() => {
     const unsubscribe = onAcceso((data: AccesoEvent) => {
+      console.log('[ControlAcceso] Evento nuevo-acceso recibido:', data.nombre, data.estado);
+
       if (data.puedeIngresar) {
         playSound('success');
       } else if (data.estado === 'congelado') {
